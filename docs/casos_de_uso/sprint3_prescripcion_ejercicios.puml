@@ -1,0 +1,41 @@
+@startuml Sprint3_Prescripcion_de_Ejercicios
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseFontSize 12
+skinparam wrapWidth 160
+
+rectangle {
+  actor "Médico Fisiatra" as Medico
+  actor "Administrador" as Super
+  actor "Paciente" as Paciente
+
+  usecase "Gestionar catálogo\nde ejercicios" as H1
+  usecase "Prescribir rutina" as H2
+  usecase "Consultar mi rutina" as H3
+
+  Medico -- H1
+  Super  -- H1
+  Medico -- H2
+  Paciente -- H3
+
+  usecase "Crear ejercicio" as C1
+  usecase "Editar ejercicio" as C2
+  usecase "Subir video de\nreferencia" as C3
+  usecase "Construir rutina" as C4
+  usecase "Cambiar estado\ndel plan" as C5
+  usecase "Reproducir video\ndel ejercicio" as C6
+  usecase "Marcar ejercicio\ncompletado" as C7
+
+  H1 <.. C1 : <<extend>>
+  H1 <.. C2 : <<extend>>
+  H1 <.. C3 : <<extend>>
+
+  H2 ..> C4 : <<include>>
+  H2 <.. C5 : <<extend>>
+
+  H3 <.. C6 : <<extend>>
+  H3 <.. C7 : <<extend>>
+}
+
+@enduml

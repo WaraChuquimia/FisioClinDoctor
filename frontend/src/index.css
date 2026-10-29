@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* Tailwind v4: sin esto, `dark:` sigue el prefers-color-scheme del sistema
+   operativo en vez del botón de la barra superior (que pone/saca la clase
+   `dark` en <html>). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-green-50: #f4f7f5;   /* Soft off-white green */
+  --color-green-100: #eef7f0;  /* Very soft light green */
+  --color-green-200: #d1e7d5;  /* Soft green border/fill */
+  --color-green-300: #a2cfab;  /* Soft green accent */
+  --color-green-400: #4ade80;  /* Bright highlight green */
+  --color-green-500: #22c55e;  /* Standard green alert */
+  --color-green-600: #16a34a;  /* Alert check */
+  --color-green-700: #0a6c38;  /* Action buttons / checkbox (clinical green) */
+  --color-green-800: #134e2a;  /* Hover action green */
+  --color-green-900: #0f3c1d;  /* Brand deep green */
+  --color-green-950: #0a2f1d;  /* Sidebar deep background */
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ==================================================================
+   VARIABLES DE COLOR — molde claro/oscuro
+   -------------------------------------------------------------------
+   `theme.js` (el `C`/`TONES`/`BADGE`/`STATUS`/`TONO_HIST`/`CHART` que
+   importa casi toda la app) apunta a estas variables en vez de a un hex
+   fijo. Así, un solo `.dark` en <html> cambia el color en cualquier
+   componente que ya use esos tokens — sin tocar el componente.
+   ================================================================== */
+:root {
+  --c-green: #0E8154;      --c-greenDeep: #0B5D3B;   --c-greenSoft: #2FA36B;
+  --c-greenUp: #16A06A;    --c-greenLine: #1E8E5A;   --c-greenOn: #0C4B34;
+  --c-navy: #123C68;       --c-body: #6E8AA6;        --c-muted: #93A6B9;
+  --c-faded: #B9C7D6;      --c-iconDark: #2C4A63;    --c-icon: #5B7FA8;
+  --c-blue: #1E5A8A;       --c-blueLine: #3B82F6;    --c-joint: #3F6690;
+  --c-white: #FFFFFF;      --c-pageBg: #F3F7FA;      --c-fieldBg: #F6F9FC;
+  --c-headBg: #F8FBFD;     --c-mint: #E7F6EE;        --c-mintTile: #DCF1E6;
+  --c-mintForm: #F1FAF5;   --c-border: #E9EFF5;      --c-fieldBd: #DCE7F0;
+  --c-grid: #EEF3F7;       --c-danger: #D64545;      --c-dangerStr: #DC2626;
+  --c-down: #E15241;       --c-warn: #C98A16;        --c-purple: #6D4BB8;
+  --c-purpleTxt: #7C5CBF;  --c-teal: #0E7A8A;
+
+  --tone-green-bg: #EAF7F0;  --tone-green-tile: #CDEBDB;  --tone-green-icon: #0E8154;  --tone-green-border: #D8EFE4;
+  --tone-blue-bg: #EFF5FD;   --tone-blue-tile: #D3E4F7;   --tone-blue-icon: #1E5A8A;   --tone-blue-border: #DEEAF8;
+  --tone-amber-bg: #FEF7EA;  --tone-amber-tile: #FBE7C0;  --tone-amber-icon: #C98A16;  --tone-amber-border: #F8EAD2;
+  --tone-rose-bg: #FDEEEE;   --tone-rose-tile: #FAD7D5;   --tone-rose-icon: #D64545;   --tone-rose-border: #F8DEDD;
+  --tone-lilac-bg: #F4F0FC;  --tone-lilac-tile: #E3D9F7;  --tone-lilac-icon: #7C5CBF;  --tone-lilac-border: #E8DFF8;
+  --tone-teal-bg: #E6F4F6;   --tone-teal-tile: #C7E7EC;   --tone-teal-icon: #0E7A8A;   --tone-teal-border: #D3EEF1;
+
+  --badge-green-bg: #DCFCE7;  --badge-green-color: #15803D;
+  --badge-amber-bg: #FEF3C7;  --badge-amber-color: #B45309;
+  --badge-blue-bg: #DBEAFE;   --badge-blue-color: #1D4ED8;
+  --badge-red-bg: #FEE2E2;    --badge-red-color: #B91C1C;
+  --badge-slate-bg: #EEF3F7;  --badge-slate-color: #64748B;
+
+  --status-activo-bg: #DCFCE7;      --status-activo-color: #15803D;      --status-activo-dot: #16A34A;
+  --status-seguimiento-bg: #DBEAFE; --status-seguimiento-color: #1D4ED8; --status-seguimiento-dot: #3B82F6;
+  --status-inactivo-bg: #EEF3F7;    --status-inactivo-color: #64748B;    --status-inactivo-dot: #94A3B8;
+
+  --hist-evaluacion-dot: #3B82F6;  --hist-evaluacion-bg: #DBEAFE;  --hist-evaluacion-color: #1D4ED8;
+  --hist-evolucion-dot: #0E8154;   --hist-evolucion-bg: #E7F6EE;   --hist-evolucion-color: #0E8154;
+  --hist-indicacion-dot: #C98A16;  --hist-indicacion-bg: #FEF3C7;  --hist-indicacion-color: #B45309;
+  --hist-radiografia-dot: #6D4BB8; --hist-radiografia-bg: #E8DFF8; --hist-radiografia-color: #5B3FA8;
+  --hist-estudio-dot: #0E7A8A;     --hist-estudio-bg: #D9F0F5;     --hist-estudio-color: #0B6473;
+
+  /* Entradas del historial que escribe sola la base (FASE 10, ver
+     ModuloPacientes.jsx): estilo propio para no confundirlas con un
+     "Control" cualquiera. */
+  --hist-evalinicial-dot: #0EA5E9; --hist-evalinicial-bg: #E0F2FE; --hist-evalinicial-color: #0369A1;
+  --hist-evalfinal-dot: #059669;   --hist-evalfinal-bg: #D1FAE5;   --hist-evalfinal-color: #047857;
+  --hist-altamedica-dot: #7C3AED;  --hist-altamedica-bg: #EDE4FB;  --hist-altamedica-color: #6D28D9;
+  --hist-reingreso-dot: #EA580C;   --hist-reingreso-bg: #FFEDD5;   --hist-reingreso-color: #C2410C;
+
+  --chart-grid: #EEF3F7; --chart-axisText: #93A6B9; --chart-dotStroke: #FFFFFF;
+
+  /* Estado del recorrido clínico (`estado_tratamiento`, FASE 10) — distinto
+     del interruptor Activo/Inactivo, así que no comparte los `--status-*`. */
+  --alta-entratamiento-bg: #DCFCE7; --alta-entratamiento-color: #15803D;
+  --alta-dealta-bg: #DBEAFE;        --alta-dealta-color: #1D4ED8;
+  --alta-temporal-bg: #D9F0F5;      --alta-temporal-color: #0B6473;
+  --alta-suspendido-bg: #EEF3F7;    --alta-suspendido-color: #64748B;
+  --alta-derivado-bg: #E8DFF8;      --alta-derivado-color: #5B3FA8;
+
+  --scrollbar-track: #f1f5f9; --scrollbar-thumb: #cbd5e1; --scrollbar-thumb-hover: #94a3b8;
+
+  /* Sidebar: verde institucional, igual en claro y oscuro a propósito (es la
+     marca, no una superficie que deba "oscurecerse"). */
+  --sb-bgTop: #0E4534;      --sb-bgMid: #0A3728;      --sb-bgBot: #052018;
+  --sb-divider: rgba(255,255,255,.09); --sb-brandSub: rgba(255,255,255,.88);
+  --sb-brandRule: rgba(255,255,255,.16); --sb-gold: #E8BC42;
+  --sb-itemText: rgba(255,255,255,.92); --sb-groupLabel: rgba(255,255,255,.46);
+  --sb-activeFrom: #F2FAF6; --sb-activeTo: #DCEFE5; --sb-activeText: #0C4B34;
+  --sb-accent: #27A86F;     --sb-badge: #15A05E;
+
+  /* Login: texto dibujado sobre la foto del panel izquierdo (necesita buen
+     contraste contra la foto, no contra una superficie blanca cualquiera) y
+     el "fade" blanco que difumina la foto hacia el panel — como degradé con
+     alpha, se guarda como tripleta r,g,b para usarse en rgba(). */
+  --login-fade-rgb: 255,255,255;
+  --login-onPhotoTitle: #0E3459; --login-onPhotoBody: #2F5A7E;
+  --login-decor: #DEE9F2;        --login-decorSoft: #E4F3EC;
+}
+
+:root.dark {
+  --c-green: #2FBE85;      --c-greenDeep: #12A362;   --c-greenSoft: #4ECB93;
+  --c-greenUp: #34C98B;    --c-greenLine: #35B37B;   --c-greenOn: #B9F0D3;
+  --c-navy: #E7EEF6;       --c-body: #A9BDD1;        --c-muted: #7E93A8;
+  --c-faded: #4C5F73;      --c-iconDark: #CBD9E6;    --c-icon: #8FA9C4;
+  --c-blue: #5B9BD5;       --c-blueLine: #60A5FA;    --c-joint: #7B9CC0;
+  --c-white: #101826;      --c-pageBg: #0B1220;      --c-fieldBg: #16202C;
+  --c-headBg: #131C27;     --c-mint: #123A2C;        --c-mintTile: #164231;
+  --c-mintForm: #10281F;   --c-border: #24303D;      --c-fieldBd: #2E3D4C;
+  --c-grid: #1E2A36;       --c-danger: #F27373;      --c-dangerStr: #EF5555;
+  --c-down: #F2735F;       --c-warn: #E3A83D;        --c-purple: #9A7FDB;
+  --c-purpleTxt: #A98BE0;  --c-teal: #35A6B8;
+
+  --tone-green-bg: #123A2C;  --tone-green-tile: #1B4E3B;  --tone-green-icon: #2FBE85;  --tone-green-border: #245942;
+  --tone-blue-bg: #101E2E;   --tone-blue-tile: #1B3653;   --tone-blue-icon: #5B9BD5;   --tone-blue-border: #28466A;
+  --tone-amber-bg: #2E2410;  --tone-amber-tile: #4A3818;  --tone-amber-icon: #E3A83D;  --tone-amber-border: #5C471F;
+  --tone-rose-bg: #2E1616;   --tone-rose-tile: #4A2222;   --tone-rose-icon: #F27373;   --tone-rose-border: #5C2C2C;
+  --tone-lilac-bg: #211A38;  --tone-lilac-tile: #382C57;  --tone-lilac-icon: #A98BE0;  --tone-lilac-border: #4A3B70;
+  --tone-teal-bg: #10262B;   --tone-teal-tile: #163A41;   --tone-teal-icon: #35A6B8;   --tone-teal-border: #1E4750;
+
+  --badge-green-bg: #0F3A26;  --badge-green-color: #4ADE94;
+  --badge-amber-bg: #3D2E0E;  --badge-amber-color: #F0A93E;
+  --badge-blue-bg: #132A45;   --badge-blue-color: #6FA8F5;
+  --badge-red-bg: #3A1717;    --badge-red-color: #F27373;
+  --badge-slate-bg: #1C2733;  --badge-slate-color: #9DAEC0;
+
+  --status-activo-bg: #0F3A26;      --status-activo-color: #4ADE94;      --status-activo-dot: #3ED480;
+  --status-seguimiento-bg: #132A45; --status-seguimiento-color: #6FA8F5; --status-seguimiento-dot: #5FA0FA;
+  --status-inactivo-bg: #1C2733;    --status-inactivo-color: #9DAEC0;    --status-inactivo-dot: #8199AC;
+
+  --hist-evaluacion-dot: #5FA0FA;  --hist-evaluacion-bg: #132A45;  --hist-evaluacion-color: #6FA8F5;
+  --hist-evolucion-dot: #2FBE85;   --hist-evolucion-bg: #123A2C;   --hist-evolucion-color: #2FBE85;
+  --hist-indicacion-dot: #E3A83D;  --hist-indicacion-bg: #3D2E0E;  --hist-indicacion-color: #F0A93E;
+  --hist-radiografia-dot: #A98BE0; --hist-radiografia-bg: #382C57; --hist-radiografia-color: #A98BE0;
+  --hist-estudio-dot: #35A6B8;     --hist-estudio-bg: #10262B;     --hist-estudio-color: #35A6B8;
+
+  --hist-evalinicial-dot: #38BDF8; --hist-evalinicial-bg: #0E2E42; --hist-evalinicial-color: #7CCBF2;
+  --hist-evalfinal-dot: #34D399;   --hist-evalfinal-bg: #0D3327;   --hist-evalfinal-color: #6EE7B7;
+  --hist-altamedica-dot: #A78BFA;  --hist-altamedica-bg: #2C2350;  --hist-altamedica-color: #C4B5FD;
+  --hist-reingreso-dot: #FB923C;   --hist-reingreso-bg: #431407;   --hist-reingreso-color: #FDBA74;
+
+  --chart-grid: #1E2A36; --chart-axisText: #7E93A8; --chart-dotStroke: #101826;
+
+  --alta-entratamiento-bg: #0F3A26; --alta-entratamiento-color: #4ADE94;
+  --alta-dealta-bg: #132A45;        --alta-dealta-color: #6FA8F5;
+  --alta-temporal-bg: #10262B;      --alta-temporal-color: #35A6B8;
+  --alta-suspendido-bg: #1C2733;    --alta-suspendido-color: #9DAEC0;
+  --alta-derivado-bg: #382C57;      --alta-derivado-color: #A98BE0;
+
+  --scrollbar-track: #16202C; --scrollbar-thumb: #2E3D4C; --scrollbar-thumb-hover: #445468;
+
+  /* Sidebar: sin bloque propio acá a propósito — hereda los valores de
+     :root de arriba, así se ve igual en claro y oscuro (es la marca). */
+
+  /* Login en modo oscuro: el "fade" blanco de la foto pasa a fundirse con
+     el mismo tono casi negro que usa el resto de superficies oscuras
+     (--c-white dark = #101826), y el texto sobre la foto se aclara. */
+  --login-fade-rgb: 16,24,38;
+  --login-onPhotoTitle: #D7E6F5; --login-onPhotoBody: #9FB9D4;
+  --login-decor: #27384A;        --login-decorSoft: #16302A;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--c-pageBg);
+  color: var(--c-navy);
+  transition: background-color .15s ease, color .15s ease;
+}
+
+/* Custom scrollbars for clean clinical dashboard UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Animation for micro-interactions */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

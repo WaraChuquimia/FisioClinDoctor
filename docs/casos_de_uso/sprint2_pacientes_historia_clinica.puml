@@ -1,0 +1,41 @@
+@startuml Sprint2_Gestion_Pacientes_Historia_Clinica
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseFontSize 12
+skinparam wrapWidth 160
+
+rectangle {
+  actor "Médico Fisiatra" as Medico
+  actor "Administrador" as Super
+  actor "Paciente" as Paciente
+
+  usecase "Gestionar pacientes" as H1
+  usecase "Gestionar historia\nclínica" as H2
+  usecase "Ver mi historia\nclínica" as H3
+
+  Medico -- H1
+  Super  -- H1
+  Medico -- H2
+  Paciente -- H3
+
+  usecase "Registrar paciente" as C1
+  usecase "Editar paciente" as C2
+  usecase "Activar o desactivar\npaciente" as C3
+  usecase "Registrar nota clínica" as C4
+  usecase "Adjuntar documento\nclínico" as C5
+  usecase "Dar de alta\nal paciente" as C6
+  usecase "Firmar consentimiento\ninformado" as C7
+
+  H1 <.. C1 : <<extend>>
+  H1 <.. C2 : <<extend>>
+  H1 <.. C3 : <<extend>>
+
+  H2 <.. C4 : <<extend>>
+  H2 <.. C5 : <<extend>>
+  H2 <.. C6 : <<extend>>
+
+  H3 ..> C7 : <<include>>
+}
+
+@enduml

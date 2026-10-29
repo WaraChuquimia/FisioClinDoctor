@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Variables de entorno (llaves de Supabase) — NUNCA subir al repositorio
+.env
+.env.local
+.env.*.local
+
+# Metadatos locales del CLI de Supabase (ref del proyecto, host del pooler, versiones)
+**/supabase/.temp/
+
+# Copias de respaldo locales de código — no se versionan
+respaldo_*/
+
+# Archivos de bloqueo temporales de Microsoft Office (se crean al abrir un .docx/.xlsx)
+~$*

@@ -1,0 +1,39 @@
+@startuml Sprint4_Evaluacion_del_Movimiento
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseFontSize 12
+skinparam wrapWidth 160
+
+rectangle {
+  actor "Paciente" as Paciente
+  actor "Médico Fisiatra" as Medico
+  actor "Administrador" as Super
+
+  usecase "Evaluar movimiento\ncon la cámara" as H1
+  usecase "Evaluar con\ngoniómetro" as H2
+  usecase "Consultar validación\nde la cámara" as H3
+
+  Paciente -- H1
+  Medico   -- H2
+  Medico   -- H3
+  Super    -- H3
+
+  usecase "Medir ángulo\narticular" as C1
+  usecase "Guiar postura\npor voz" as C2
+  usecase "Guardar sesión" as C3
+  usecase "Registrar evaluación\ninicial" as C4
+  usecase "Registrar evaluación\nfinal" as C5
+  usecase "Exportar validación\n(PDF/CSV)" as C6
+
+  H1 ..> C1 : <<include>>
+  H1 <.. C2 : <<extend>>
+  H1 <.. C3 : <<extend>>
+
+  H2 <.. C4 : <<extend>>
+  H2 <.. C5 : <<extend>>
+
+  H3 <.. C6 : <<extend>>
+}
+
+@enduml

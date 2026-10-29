@@ -1,0 +1,33 @@
+@startuml FisioClin_Diagrama_General
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseFontSize 13
+skinparam wrapWidth 160
+skinparam linetype ortho
+
+actor "Administrador" as Super
+actor "Médico Fisiatra" as Medico
+
+rectangle "Sistema FisioClin\n────────────────────────" {
+  usecase "Gestionar usuarios\ny accesos" as UC1
+  usecase "Gestionar pacientes e\nhistoria clínica" as UC2
+  usecase "Prescribir\nejercicios" as UC3
+  usecase "Evaluar el movimiento\ncon la cámara" as UC4
+  usecase "Gestionar sesiones,\nreportes y alertas" as UC5
+}
+
+actor "Paciente" as Paciente
+
+Super  -- UC1
+Super  -- UC2
+Super  -- UC5
+
+Medico -- UC2
+Medico -- UC3
+Medico -- UC4
+Medico -- UC5
+
+UC4 -- Paciente
+
+@enduml

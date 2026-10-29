@@ -1,0 +1,18 @@
+{
+  "name": "fisioclin-doctor",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "start": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "preview": "npm run preview --prefix frontend",
+    "otp": "npm run dev --prefix backend/otp",
+    "dev:all": "concurrently -n WEB,OTP -c green,magenta \"npm run dev --prefix frontend\" \"npm run dev --prefix backend/otp\"",
+    "install:all": "npm install --prefix frontend && npm install --prefix backend/otp"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

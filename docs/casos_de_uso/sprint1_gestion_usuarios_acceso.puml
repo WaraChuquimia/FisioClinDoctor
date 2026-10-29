@@ -1,0 +1,47 @@
+@startuml Sprint1_Gestion_Usuarios_y_Acceso
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseFontSize 12
+skinparam wrapWidth 160
+
+rectangle {
+  actor "Médico Fisiatra" as Medico
+  actor "Administrador" as Super
+
+  usecase "Iniciar sesión" as H1
+  usecase "Gestionar mi cuenta" as H2
+  usecase "Gestionar usuarios\ny accesos" as H3
+
+  Medico -- H1
+  Medico -- H2
+  Super  -- H1
+  Super  -- H2
+  Super  -- H3
+
+  usecase "Autenticar\ncredenciales" as C1
+  usecase "Iniciar sesión\ncon Google" as C2
+  usecase "Cerrar sesión" as C3
+  usecase "Cambiar contraseña" as C4
+  usecase "Recuperar contraseña" as C5
+  usecase "Editar perfil" as C6
+  usecase "Registrar profesional" as C7
+  usecase "Aprobar o rechazar\nsolicitud de acceso" as C8
+  usecase "Definir permisos\npor módulo" as C9
+  usecase "Activar o desactivar\ncuenta" as C10
+
+  H1 ..> C1 : <<include>>
+  H1 <.. C2 : <<extend>>
+  H1 <.. C3 : <<extend>>
+
+  H2 <.. C4 : <<extend>>
+  H2 <.. C5 : <<extend>>
+  H2 <.. C6 : <<extend>>
+
+  H3 <.. C7  : <<extend>>
+  H3 <.. C8  : <<extend>>
+  H3 <.. C9  : <<extend>>
+  H3 <.. C10 : <<extend>>
+}
+
+@enduml
